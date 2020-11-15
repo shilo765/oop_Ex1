@@ -54,7 +54,6 @@ public class WGraph_Algo  implements weighted_graph_algorithms{
                 }
             }
         }
-        System.out.println(nodeCount);
         return g1.getNode(dest).getTag();
     }
 

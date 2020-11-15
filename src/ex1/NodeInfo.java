@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Objects;
-public class NodeInfo implements node_info {
+public class NodeInfo implements node_info,Comparable<NodeInfo> {
     private static int keyCount = 0;
     private int key = -1;
     private double tag = -1;
@@ -136,6 +136,15 @@ public class NodeInfo implements node_info {
                 ", lastNei=" + lastNei +
                 ", nei=" + nei +
                 '}';
+    }
+    @Override
+    public int compareTo(NodeInfo n1)
+    {
+        if(this.getTag()>n1.getTag())
+            return 1;
+        if (this.getTag()<n1.getTag())
+            return -1;
+        return 0;
     }
     public double getNodesEdges() {
         return NodeEdges;

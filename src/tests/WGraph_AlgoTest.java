@@ -28,6 +28,7 @@ public class WGraph_AlgoTest {
         wg.getGraph().connect(10,4,1);
         return wg;
     }
+    /**test the shortestPathDist that work properly*/
     @Test
     public void distTest(){
         WGraph_Algo wg=new WGraph_Algo();
@@ -39,7 +40,31 @@ public class WGraph_AlgoTest {
         wg=graphExample();
         if(wg.shortestPathDist(1,9)!=7)
             fail("shortestPathDist not work properly");
-        System.out.println(wg.isConnected());
-        System.out.println(wg.getGraph().getV().size());
+        wg.getGraph().addNode(30);
+        if(wg.shortestPathDist(1,30)!=-1)
+            fail("shortestPathDist not work properly");
+    }
+    /**test check the isConnect method */
+    @Test
+    public void isConnectTest()
+    {
+        WGraph_Algo wg=new WGraph_Algo();
+        if(!wg.isConnected())
+            fail("0 nodes in the graph must should return true");
+        wg.getGraph().addNode(8);
+        if(!wg.isConnected())
+            fail("1 nodes in the graph must should return true");
+        wg.getGraph().addNode(9);
+        if(wg.isConnected())
+            fail("its need to be unConnect in this example");
+        wg.getGraph().connect(8,9,17);
+        if(!wg.isConnected())
+            fail("its need to be connect in this example");
+        wg=graphExample();
+        if(!wg.isConnected())
+            fail("its need to be connect in this example");
+        wg.getGraph().addNode(90);
+        if(wg.isConnected())
+            fail("its need to be connect in this example");
     }
 }

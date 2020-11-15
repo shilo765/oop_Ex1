@@ -57,6 +57,7 @@ public class WGraph_Algo  implements weighted_graph_algorithms{
             for (node_info n1: temp.getNi()) {
                 if(n1.getTag()==-1||n1.getTag()>temp.getTag()+g1.getEdge(n1.getKey(),temp.getKey()))
                 {
+                    ((NodeInfo)n1).setLastNei(temp.getKey());
                     if(n1.getTag()==-1)
                         nodeCount++;
                     else

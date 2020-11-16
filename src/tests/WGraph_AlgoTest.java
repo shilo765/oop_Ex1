@@ -1,7 +1,13 @@
 package tests;
 
+import ex1.NodeInfo;
 import ex1.WGraph_Algo;
+import ex1.node_info;
 import org.junit.jupiter.api.Test;
+
+import java.util.LinkedList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class WGraph_AlgoTest {
@@ -66,5 +72,27 @@ public class WGraph_AlgoTest {
         wg.getGraph().addNode(90);
         if(wg.isConnected())
             fail("its need to be connect in this example");
+        wg.shortestPath(1,10);
+    }
+    @Test
+    public void shortestPathTest()
+    {
+        WGraph_Algo wg=new WGraph_Algo();
+        LinkedList<NodeInfo> l1=new LinkedList();
+        assertNull(wg.shortestPath(5,3));
+        wg.getGraph().addNode(8);
+        assertNull(wg.shortestPath(5,3));
+        wg.getGraph().addNode(7);
+        assertNull(wg.shortestPath(8,7));
+        wg.getGraph().connect(7,8,10);
+        l1=(LinkedList)wg.shortestPath(7,8);
+        assertEquals(l1.getFirst().getKey(),7);
+        l1.removeFirst();
+        assertEquals(l1.getFirst().getKey(),8);
+        wg=graphExample();
+        l1=(LinkedList)wg.shortestPath(1,9);
+        assertEquals(l1.getFirst().getKey(),1);
+        assertEquals(l1.getLast().getKey(),9);
+        assertNull(wg.shortestPath(0,8));
     }
 }

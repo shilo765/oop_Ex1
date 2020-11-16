@@ -7,6 +7,8 @@ import ex1.WGraph_DS;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Date;
+
 public class WGraph_DSTest {
     /**Test all the gets methods on WGraph_ds(except getEdge)*/
     @Test

@@ -1,12 +1,14 @@
 package ex1;
 
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.PriorityQueue;
 
 public class WGraph_Algo  implements weighted_graph_algorithms{
     private  WGraph_DS g1=new WGraph_DS();
     private PriorityQueue<NodeInfo> pq=new PriorityQueue();
+    private  LinkedList<node_info> l1 =new LinkedList<>();
             public static int nodeCount=0;
     @Override
     public void init(weighted_graph g) {
@@ -73,7 +75,27 @@ public class WGraph_Algo  implements weighted_graph_algorithms{
 
     @Override
     public List<node_info> shortestPath(int src, int dest) {
-        return null;
+        double temp=shortestPathDist(src,dest);
+        NodeInfo n1=new NodeInfo();
+        if(src<1||dest<1)
+            return null;
+        if(g1.getV().size()==0)
+            return null;
+        if(!g1.getNods().contains(g1.getNode(src))||!g1.getNods().contains(g1.getNode(dest)))
+            return null;
+        if(src==dest){
+          l1.addFirst(g1.getNode(src));
+          return l1;}
+        if(temp==-1)
+            return null;
+        n1=(NodeInfo)g1.getNode(dest);
+        while(n1.getKey()!=src)
+        {
+            l1.addFirst(n1);
+            n1=(NodeInfo)g1.getNode(n1.getLastNei());
+        }
+        l1.addFirst(n1);
+        return l1;
     }
 
     @Override

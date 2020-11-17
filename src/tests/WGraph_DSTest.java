@@ -74,6 +74,7 @@ public class WGraph_DSTest {
         g1.addNode(7);
         g2=g1.copy();
         assertEquals(g1,g2);
+        System.out.println(g2);
     }
 }
 

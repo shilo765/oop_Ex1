@@ -1,32 +1,39 @@
 package ex1;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 public class WGraph_Algo  implements weighted_graph_algorithms{
-    private  WGraph_DS g1=new WGraph_DS();
+    private weighted_graph g1=new WGraph_DS();
     private PriorityQueue<NodeInfo> pq=new PriorityQueue();
     private  LinkedList<node_info> l1 =new LinkedList<>();
             public static int nodeCount=0;
     @Override
     public void init(weighted_graph g) {
-
+        this.g1=g;
     }
 
     @Override
     public weighted_graph getGraph() {
         return this.g1;
     }
+    public void setWGraph(WGraph_DS wg)
+    {
+        this.g1=wg.copy();
+    }
 
     @Override
     public weighted_graph copy() {
         WGraph_DS wg=new WGraph_DS();
-        wg=(WGraph_DS)this.copy();
+        wg=((WGraph_DS)this.g1).copy();
         return wg;
     }
 
     @Override
     public boolean isConnected() {
-        if (this.g1.getNods().size()==1||this.g1.getNods().size()==0)
+        if (this.g1.getV().size()==1||this.g1.getV().size()==0)
             return true;
         Iterator<node_info> iterator=this.g1.getV().iterator();
         node_info n1=new NodeInfo();
@@ -101,6 +108,15 @@ public class WGraph_Algo  implements weighted_graph_algorithms{
 
     @Override
     public boolean save(String file) {
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter(".\\graph.txt"));
+            bw.write(this.toString());
+            bw.close();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
         return false;
     }
 

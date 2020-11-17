@@ -1,9 +1,6 @@
 package ex1;
 
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.PriorityQueue;
+import java.util.*;
 
 public class WGraph_Algo  implements weighted_graph_algorithms{
     private  WGraph_DS g1=new WGraph_DS();
@@ -22,14 +19,16 @@ public class WGraph_Algo  implements weighted_graph_algorithms{
 
     @Override
     public weighted_graph copy() {
-        return null;
+        WGraph_DS wg=new WGraph_DS();
+        wg=(WGraph_DS)this.copy();
+        return wg;
     }
 
     @Override
     public boolean isConnected() {
         if (this.g1.getNods().size()==1||this.g1.getNods().size()==0)
             return true;
-        Iterator<node_info> iterator=this.g1.getNods().iterator();
+        Iterator<node_info> iterator=this.g1.getV().iterator();
         node_info n1=new NodeInfo();
         n1=iterator.next();
         shortestPathDist(n1.getKey(),iterator.next().getKey());
@@ -43,10 +42,11 @@ public class WGraph_Algo  implements weighted_graph_algorithms{
     }
     @Override
     public double shortestPathDist(int src, int dest) {
+        this.pq.clear();
         setTags();
         nodeCount=0;
         NodeInfo temp=new NodeInfo();
-        if(!g1.getNods().contains(g1.getNode(src))||!g1.getNods().contains(g1.getNode(dest)))
+        if(!g1.getV().contains(g1.getNode(src))||!g1.getV().contains(g1.getNode(dest)))
             return -1;
         nodeCount=1;
         if(src==dest)
@@ -75,13 +75,14 @@ public class WGraph_Algo  implements weighted_graph_algorithms{
 
     @Override
     public List<node_info> shortestPath(int src, int dest) {
+        this.l1.clear();
         double temp=shortestPathDist(src,dest);
         NodeInfo n1=new NodeInfo();
         if(src<1||dest<1)
             return null;
         if(g1.getV().size()==0)
             return null;
-        if(!g1.getNods().contains(g1.getNode(src))||!g1.getNods().contains(g1.getNode(dest)))
+        if(!g1.getV().contains(g1.getNode(src))||!g1.getV().contains(g1.getNode(dest)))
             return null;
         if(src==dest){
           l1.addFirst(g1.getNode(src));
@@ -106,5 +107,25 @@ public class WGraph_Algo  implements weighted_graph_algorithms{
     @Override
     public boolean load(String file) {
         return false;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        WGraph_Algo that = (WGraph_Algo) o;
+        return g1.equals(that.g1);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(g1);
+    }
+
+    @Override
+    public String toString() {
+        return "WGraph_Algo{" +
+                "g1=" + g1 +
+                '}';
     }
 }

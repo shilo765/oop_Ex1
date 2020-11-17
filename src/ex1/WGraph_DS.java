@@ -84,7 +84,7 @@ public class WGraph_DS implements weighted_graph {
 
     public node_info removeNode(int key) {
         NodeInfo temp = new NodeInfo();
-        temp.copy((NodeInfo) this.getNode(key));
+        temp=((NodeInfo) this.getNode(key)).copy();
         if (this.getNode(key) != null && this.nodes.containsKey(key)) {
             Iterator var3 = ((NodeInfo)this.getNode(key)).getNi().iterator();
 
@@ -127,12 +127,21 @@ public class WGraph_DS implements weighted_graph {
         return this.nodes.isEmpty() ? 0 : this.nodes.size();
     }
 
-
     @Override
     public String toString() {
-        return "ex1.WGraph_DS{" +
+        return "WGraph_DS{" +
                 "nodes=" + nodes +
                 '}';
+    }
+    public WGraph_DS copy()
+    {
+        WGraph_DS g1=new WGraph_DS();
+        Iterator var3 = this.getNods().values().iterator();
+        while(var3.hasNext()) {
+            NodeInfo m = (NodeInfo)var3.next();
+            g1.getNods().put(m.getKey(),m.copy());
+        }
+        return g1;
     }
 
     @Override
@@ -152,8 +161,8 @@ public class WGraph_DS implements weighted_graph {
         return ModeCount;
     }
 
-    public Collection<node_info> getNods() {
-        return this.nodes.values();
+    public HashMap getNods() {
+        return this.nodes;
     }
 }
 

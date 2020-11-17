@@ -31,7 +31,7 @@ public class WGraph_DSTest {
         NodeInfo n1 =new NodeInfo();
         WGraph_DS g1 =new WGraph_DS();
         g1.addNode(n1.getKey());
-        if(!(g1.getNods().contains(n1)))
+        if(!(g1.getV().contains(n1)))
             fail("addNode not work properly");
         g1.removeNode(n1.getKey());
         if(g1.getNods().size()!=0)
@@ -63,5 +63,17 @@ public class WGraph_DSTest {
                 fail("the remove method not work properly(or hasEdge)");
             System.out.println("git test");
         }
+    /** test the equality of the graph*/
+    @Test
+    public void equals()
+    {
+        WGraph_DS g1=new WGraph_DS();
+        WGraph_DS g2=new WGraph_DS();
+        assertEquals(g1,g1);
+        assertEquals(g2,g2);
+        g1.addNode(7);
+        g2=g1.copy();
+        assertEquals(g1,g2);
+    }
 }
 

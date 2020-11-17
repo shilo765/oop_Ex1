@@ -83,24 +83,31 @@ public class NodeInfo implements node_info,Comparable<NodeInfo> {
         return this.info;
     }
 
-    public NodeInfo copy(NodeInfo n) {
-        NodeInfo n2 = new NodeInfo();
-        if (n == null) {
-            return n2;
-        } else {
-            this.key = n.getKey();
-            this.info = n.getInfo();
-            this.tag = n.getTag();
-            Iterator var3 = n.getNi().iterator();
+    public HashMap getHashNei(){return this.nei;}
+
+    public NodeInfo copy() {
+        NodeInfo n = new NodeInfo();
+
+
+
+            n.setKey(this.key);
+            n.setInfo(this.info);
+            n.setTag(this.tag);
+            n.setLastNei(this.lastNei);
+            Iterator var3 = this.getNi().iterator();
 
             while(var3.hasNext()) {
                 node_info m = (node_info)var3.next();
-                this.nei.put(m.getKey(), m);
+                n.getHashNei().put(m.getKey(), m);
+            }
+            Iterator var4 = this.weightMap.values().iterator();
+            while(var3.hasNext()) {
+                NodeInfo m = (NodeInfo)var3.next();
+                n.getWeightMap().put(m.getKey(),n.getWeight(m.getKey()));
             }
 
             return this;
         }
-    }
     @Override
     public void setInfo(String s) {
         this.info = s;
@@ -109,6 +116,7 @@ public class NodeInfo implements node_info,Comparable<NodeInfo> {
     public void setTag(double t) {
         this.tag = t;
     }
+
 
     @Override
     public boolean equals(Object o) {
@@ -119,24 +127,27 @@ public class NodeInfo implements node_info,Comparable<NodeInfo> {
                 Double.compare(nodeInfo.tag, tag) == 0 &&
                 lastNei == nodeInfo.lastNei &&
                 info.equals(nodeInfo.info) &&
-                nei.equals(nodeInfo.nei);
+                nei.equals(nodeInfo.nei) &&
+                weightMap.equals(nodeInfo.weightMap);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(key, tag, info, lastNei, nei);
+        return Objects.hash(key, tag, info, lastNei, nei, weightMap);
     }
 
     @Override
     public String toString() {
-        return "ex1.NodeInfo{" +
+        return "NodeInfo{" +
                 "key=" + key +
                 ", tag=" + tag +
                 ", info='" + info + '\'' +
                 ", lastNei=" + lastNei +
                 ", nei=" + nei +
+                ", weightMap=" + weightMap +
                 '}';
     }
+
     @Override
     public int compareTo(NodeInfo n1)
     {

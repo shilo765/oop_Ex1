@@ -2,6 +2,7 @@ package tests;
 
 import ex1.NodeInfo;
 import ex1.WGraph_Algo;
+import ex1.WGraph_DS;
 import ex1.node_info;
 import org.junit.jupiter.api.Test;
 
@@ -94,5 +95,15 @@ public class WGraph_AlgoTest {
         assertEquals(l1.getFirst().getKey(),1);
         assertEquals(l1.getLast().getKey(),9);
         assertNull(wg.shortestPath(0,8));
+    }
+    public void equals()
+    {
+        WGraph_Algo g1=new WGraph_Algo();
+        WGraph_Algo g2=new WGraph_Algo();
+        assertEquals(g1,g1);
+        assertEquals(g2,g2);
+        g1.getGraph().addNode(7);
+        g2=(WGraph_Algo)g1.copy();
+        assertEquals(g1,g2);
     }
 }

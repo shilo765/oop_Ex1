@@ -84,8 +84,9 @@ public class WGraph_DS implements weighted_graph {
 
     public node_info removeNode(int key) {
         NodeInfo temp = new NodeInfo();
-        temp=((NodeInfo) this.getNode(key)).copy();
+
         if (this.getNode(key) != null && this.nodes.containsKey(key)) {
+            temp=((NodeInfo) this.getNode(key)).copy();
             Iterator var3 = ((NodeInfo)this.getNode(key)).getNi().iterator();
 
             while(var3.hasNext()) {

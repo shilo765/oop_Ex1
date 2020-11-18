@@ -83,8 +83,7 @@ public class WGraph_Algo  implements weighted_graph_algorithms{
         this.l1.clear();
         double temp=shortestPathDist(src,dest);
         NodeInfo n1=new NodeInfo();
-        if(src<1||dest<1)
-            return null;
+
         if(g1.getV().size()==0)
             return null;
         if(!g1.getV().contains(g1.getNode(src))||!g1.getV().contains(g1.getNode(dest)))

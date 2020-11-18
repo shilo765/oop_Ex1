@@ -7,6 +7,7 @@ import ex1.WGraph_DS;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.sql.Time;
 import java.util.Date;
 
 public class WGraph_DSTest {
@@ -75,5 +76,24 @@ public class WGraph_DSTest {
         assertEquals(g1,g2);
         System.out.println(g2);
     }
+//    @Test
+//    public void muliion()
+//    {
+//        long start ,end;
+//        WGraph_DS wg=new WGraph_DS();
+//        for(int i=1;i<1000000;i++)
+//            wg.addNode(i);
+//        for(int i=1;i<999990;i++)
+//            {wg.connect(i,i+1,7);
+//                wg.connect(i,i+2,7);
+//                wg.connect(i,i+3,7);
+//                wg.connect(i,i+4,7);
+//                wg.connect(i,i+5,7);
+//                wg.connect(i,i+6,7);
+//                wg.connect(i,i+7,7);
+//                wg.connect(i,i+8,7);
+//                wg.connect(i,i+9,7);
+//                wg.connect(i,i+10,7);}
+//    }
 }
 

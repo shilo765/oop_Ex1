@@ -25,7 +25,10 @@ public class NodeInfo implements node_info,Comparable<NodeInfo> {
     {
         this.key=key;
     }
-    public void addToWeightMap(int node1,double w){this.weightMap.put(node1,w);}
+    public void addToWeightMap(int node1,double w){
+       if(!this.weightMap.containsKey(node1))
+        this.weightMap.put(node1,w);
+    }
 
     public double getWeight(int node1)
     {
@@ -141,9 +144,8 @@ public class NodeInfo implements node_info,Comparable<NodeInfo> {
     @Override
     public String toString() {
         String hashString="";
-        for(double w1: weightMap.values())
             for(int k1: weightMap.keySet())
-            hashString+=k1+"+"+w1+",";
+            hashString+=k1+"+"+getWeightMap().get(k1)+",";
         String neiString="";
         for(node_info n1: nei.values())
             neiString+=n1.getKey()+",";

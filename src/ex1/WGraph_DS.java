@@ -116,6 +116,10 @@ public class WGraph_DS implements weighted_graph {
                 connectCount -= 0.5D;
                 ++ModeCount;
             }}
+        if(((NodeInfo)this.getNode(node2)).getWeightMap().containsKey(node1))
+            ((NodeInfo)this.getNode(node2)).getWeightMap().remove(node1);
+        if(((NodeInfo)this.getNode(node1)).getWeightMap().containsKey(node2))
+            ((NodeInfo)this.getNode(node1)).getWeightMap().remove(node2);
 
     }
 
@@ -129,9 +133,12 @@ public class WGraph_DS implements weighted_graph {
 
     @Override
     public String toString() {
+        String nodesString="";
+        for(node_info n1: nodes.values())
+            nodesString+=n1+",";
         return "WGraph_DS{" +
-                "nodes=" + nodes +
-                '}';
+                "nodes=" + nodesString +
+                '}'+"\n";
     }
     public WGraph_DS copy()
     {
@@ -149,7 +156,10 @@ public class WGraph_DS implements weighted_graph {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         WGraph_DS wGraph_ds = (WGraph_DS) o;
-        return nodes.equals(wGraph_ds.nodes);
+        for(node_info n1: wGraph_ds.nodes.values())
+            if(!nodes.containsKey(n1.getKey()))
+                return false;
+        return true;
     }
 
     @Override

@@ -1,8 +1,6 @@
 package ex1;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 public class WGraph_Algo  implements weighted_graph_algorithms{
@@ -109,9 +107,10 @@ public class WGraph_Algo  implements weighted_graph_algorithms{
     @Override
     public boolean save(String file) {
         try {
-            BufferedWriter bw = new BufferedWriter(new FileWriter(".\\graph.txt"));
+            BufferedWriter bw = new BufferedWriter(new FileWriter(".\\"+file+".txt"));
             bw.write(this.toString());
             bw.close();
+            return true;
         }
         catch (IOException e)
         {
@@ -122,6 +121,82 @@ public class WGraph_Algo  implements weighted_graph_algorithms{
 
     @Override
     public boolean load(String file) {
+
+        try {
+            this.g1=new WGraph_DS();
+            BufferedReader gr= new BufferedReader(new FileReader(".\\"+file+".txt"));
+            String line;
+            line=gr.readLine();
+            if(line.contentEquals("WGraph_Algo{g1=WGraph_DS{nodes=}"))
+                return true;
+            line=(line.split("nodes="))[1];
+            line=","+line;
+           while (!line.equals(",}"))
+           {
+               String tempkey="";
+               String tempkey2="";
+               String temp="";
+               line=(line.split("key="))[1];
+               while(line.charAt(0)!=',')
+               {tempkey+=line.charAt(0); line=line.substring(1);}
+               this.g1.addNode(Integer.parseInt(tempkey));
+               line=(line.split("tag="))[1];
+               while(line.charAt(0)!=',')
+               {temp+=line.charAt(0); line=line.substring(1);}
+               this.g1.getNode(Integer.parseInt(tempkey)).setTag(Double.parseDouble(temp));
+               line=(line.split("info="))[1];
+               temp="";
+               while(line.charAt(0)!=',')
+               {temp+=line.charAt(0); line=line.substring(1);}
+               this.g1.getNode(Integer.parseInt(tempkey)).setInfo(temp);
+               line=(line.split("lastNei="))[1];
+               temp="";
+               while(line.charAt(0)!=',')
+               {temp+=line.charAt(0); line=line.substring(1);}
+               ((NodeInfo)this.g1.getNode(Integer.parseInt(tempkey))).setLastNei(Integer.parseInt(temp));
+               line=(line.split("nei="))[1];
+               temp="";
+               if(((NodeInfo)this.getGraph().getNode(Integer.parseInt(tempkey))).getHashNei().size()==0)
+                   line= ","+line;
+               while(line.charAt(0)!=','||line.charAt(1)!=',')
+               {
+                   if(line.charAt(0)==',')
+                   {
+                    if(!temp.equals(""))
+                   ((NodeInfo) this.g1.getNode(Integer.parseInt(tempkey))).addNi(g1.getNode(Integer.parseInt(temp)));
+                      temp="";     }
+                   else
+                       temp+=line.charAt(0);
+                      line=line.substring(1) ;
+                      }
+               if(!temp.equals(""))
+               ((NodeInfo) this.g1.getNode(Integer.parseInt(tempkey))).addNi(g1.getNode(Integer.parseInt(temp)));
+               line=(line.split("weightMap="))[1];
+               temp="";
+               while(line.charAt(0)!='}') {
+                   while (line.charAt(0) != '+') {
+                       tempkey2 += line.charAt(0);
+                       line = line.substring(1);
+                   }
+                   line=line.substring(1);
+                   while (line.charAt(0) != ',') {
+                       temp += line.charAt(0);
+                       line = line.substring(1);
+                   }
+                   if(!tempkey2.equals("")&&!temp.equals(""))
+                   ((NodeInfo) this.g1.getNode(Integer.parseInt(tempkey))).addToWeightMap(Integer.parseInt(tempkey2),Double.parseDouble(temp));
+                   line=line.substring(1);
+                   tempkey2="";
+                   temp="";
+               }
+               line=gr.readLine();
+           }
+            return true;
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
         return false;
     }
 

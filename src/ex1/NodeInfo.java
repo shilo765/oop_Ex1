@@ -56,10 +56,12 @@ public class NodeInfo implements node_info,Comparable<NodeInfo> {
     }
 
     public void addNi(node_info t) {
+        if(t!=null)
+        {
         if (!this.equals(t)) {
             this.nei.put(t.getKey(), t);
             ++neiCount;
-        }
+        }}
 
     }
 
@@ -138,15 +140,23 @@ public class NodeInfo implements node_info,Comparable<NodeInfo> {
 
     @Override
     public String toString() {
+        String hashString="";
+        for(double w1: weightMap.values())
+            for(int k1: weightMap.keySet())
+            hashString+=k1+"+"+w1+",";
+        String neiString="";
+        for(node_info n1: nei.values())
+            neiString+=n1.getKey()+",";
         return "NodeInfo{" +
                 "key=" + key +
                 ", tag=" + tag +
                 ", info='" + info + '\'' +
                 ", lastNei=" + lastNei +
-                ", nei=" + nei +
-                ", weightMap=" + weightMap +
-                '}';
-    }
+                ", nei=" + neiString +
+                ", weightMap=" + hashString+
+                        "}"+"\n";
+        }
+
 
     @Override
     public int compareTo(NodeInfo n1)

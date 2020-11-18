@@ -61,7 +61,6 @@ public class WGraph_DSTest {
             temp=g1.hasEdge(n1.getKey(), n2.getKey());
             if(temp)
                 fail("the remove method not work properly(or hasEdge)");
-            System.out.println("git test");
         }
     /** test the equality of the graph*/
     @Test

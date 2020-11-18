@@ -3,6 +3,7 @@ package tests;
 import ex1.*;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 
 
@@ -102,7 +103,29 @@ public class WGraph_AlgoTest {
         g1.getGraph().addNode(7);
         g1.getGraph().addNode(8);
         g1.copy();
-        //g2.setWGraph((WGraph_DS)g1.copy());
-        System.out.println(g1.toString());
+        g2.setWGraph((WGraph_DS)g1.copy());
+        assertEquals(g1,g2);
+    }
+    /** test sava and load*/
+    @Test
+    public void sAndlTest()
+    {
+
+        WGraph_Algo wg=new WGraph_Algo() ;
+        WGraph_Algo wg2=new WGraph_Algo() ;
+        wg.save("test");
+        wg2.load("test");
+        assertEquals(wg2.getGraph(),wg.getGraph());
+        wg= graphExample();
+        wg.shortestPath(1,9);
+        //System.out.println(wg);
+        if(!wg.save("test"))
+            fail("save method not work properly");
+        wg2.load("test");
+        assertEquals(wg2.getGraph(),wg.getGraph());
+        wg.getGraph().removeEdge(1,3);
+        wg.save("test");
+        wg2.load("test");
+        assertEquals(wg2.getGraph(),wg.getGraph());
     }
 }

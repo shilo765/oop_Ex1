@@ -59,6 +59,7 @@ public class NodeInfoTest{
         assertNotEquals(n1,n2);
         n2=n1.copy();
         assertEquals(n1,n2);
+
     }
 
 
